@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SchoolDbCsharp.Models.Teacher>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of all Teacher</h2>
+<div>there are @Model.Count() teachers currently employed.</div>
+<div>
+    <form action="/Teacher/List" method="GET">
+        <input type="text" name="SearchKey" placeholder="Type in here"/>
+        <input type="submit" value="Search" />
+    </form>
+</div>
+
+<div>
+    @{
+
+        foreach (SchoolDbCsharp.Models.Teacher Teacher in Model)
+        {
+            <div>
+                <span> @Teacher.TeacherFName @Teacher.TeacherLName     <!-- @Teacher.HireDate @Teacher.Salary @Teacher.EmployeeNumber</span>-->
+            </div>
+
+        }
+
+    }
+
+</div>
+
