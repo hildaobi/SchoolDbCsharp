@@ -4,7 +4,14 @@
     ViewBag.Title = "Show";
 }
 
-<h2>Show</h2>
 
-<div>First Name:@Model.TeacherFName</div>
-<div>Last Name:@Model.TeacherLName</div>
+<div id="containershow">
+    <nav>
+        <a class="navlink" href="/Teacher/List">Back To Teachers</a>
+        <a class="dellink" href="/Teacher/DeleteConfirm/@Model.Teacherid">Delete</a>
+    </nav>
+    <h2>@Model.TeacherFName @Model.TeacherLName </h2>
+    
+
+</div>
+

@@ -4,27 +4,19 @@
     ViewBag.Title = "List";
 }
 
-<h2>List of all Teacher</h2>
-<div>there are @Model.Count() teachers currently employed.</div>
-<div>
+<div id="containerlist">
+    <nav>
+        <a class="navlink" href="/Teacher/New">New Teacher</a>
+    </nav>
+    <h2>List of Teachers</h2>
     <form action="/Teacher/List" method="GET">
-        <input type="text" name="SearchKey" placeholder="Type in here"/>
+        <input type="text" name="SearchKey" autocomplete="off" />
         <input type="submit" value="Search" />
     </form>
-</div>
-
-<div>
-    @{
-
-        foreach (SchoolDbCsharp.Models.Teacher Teacher in Model)
-        {
-            <div>
-                <span> @Teacher.TeacherFName @Teacher.TeacherLName     <!-- @Teacher.HireDate @Teacher.Salary @Teacher.EmployeeNumber</span>-->
-            </div>
-
-        }
-
+    @foreach (var teacher in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12"><a href="/Teacher/Show/@teacher.Teacherid">@teacher.TeacherFName @teacher.TeacherLName</a></div>
+        </div>
     }
-
 </div>
-
