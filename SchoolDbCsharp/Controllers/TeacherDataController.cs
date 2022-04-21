@@ -183,6 +183,41 @@ namespace SchoolDbCsharp.Controllers
 
 
     }
+        /// <summary>
+        /// Updates an Teacher on the MySQL Database. Non-Deterministic.
+        /// </summary>
+        /// <param name="TeacherInfo">An object with fields that map to the columns of the teacher's table.</param>
+        /// <param name="id">primary key of the teacher that is being updated</param>
+        
+        [HttpPost]
+        
+        public void UpdateTeacher(int id, [FromBody] Teacher TeacherInfo)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
 
-}
+            //Debug.WriteLine(TeacherInfo.TeacherFName);
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "update teachers set teacherfname=@TeacherFName, teacherlname=@TeacherLName, hiredate=@HireDate, employeenumber=@EmployeeNumber  where teacherid=@Teacherid";
+            cmd.Parameters.AddWithValue("@TeacherFName", TeacherInfo.TeacherFName);
+            cmd.Parameters.AddWithValue("@TeacherLName", TeacherInfo.TeacherLName);
+            cmd.Parameters.AddWithValue("@HireDate", TeacherInfo.HireDate);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", TeacherInfo.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@Teacherid", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+
+        }
+    }
 }

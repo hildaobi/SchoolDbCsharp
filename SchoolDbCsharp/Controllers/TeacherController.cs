@@ -96,7 +96,52 @@ namespace SchoolDbCsharp.Controllers
 
             return RedirectToAction("List");
         }
+        /// <summary>
+        /// returns a webpage of the Teacher
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        //GET : /Teacher/Edit/{id}
+        public ActionResult Edit(int id)
+        {
+            TeacherDataController controller=new TeacherDataController();
+            Teacher SelectedTeacher= controller.FindTeacher(id);
+            return View(SelectedTeacher);
+        }
 
+        // POST : /Teacher/Update/{id}
+        /// <summary>
+        /// updates the teacher
+        /// </summary>
+        /// <param name="id">Id of the Teacher to update</param>
+        /// <param name="TeacherFName">The updated first name of the teacher</param>
+        /// <param name="TeacherLName">The updated last name of the teacher</param>
+        /// <param name="HireDate">The updated hiredate of the teacher.</param>
+        /// <param name="EmployeeNumber">The updated employee nuber of the teacher.</param>
+        /// <returns>A dynamic webpage which provides the current information of the teacher.</returns>
+        /// <example>
+        /// FORM DATA / POST DATA / REQUEST BODY 
+        /// {
+        ///	"TeacherFName":"Ifeyinwa",
+        ///	"TeacherLName":"joseph",
+        ///	"HireDate":"2022-03-05",
+        ///	"EmployeeNumber":"T500"
+        /// }
+        /// </example>
+        [HttpPost]
+        public ActionResult Update(int id, string TeacherFName, string TeacherLName, string HireDate, string EmployeeNumber)
+        {
+            Teacher TeacherInfo = new Teacher();
+            TeacherInfo.TeacherFName = TeacherFName;
+            TeacherInfo.TeacherLName = TeacherLName;
+            TeacherInfo.HireDate = HireDate;
+            TeacherInfo.EmployeeNumber = EmployeeNumber;
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.UpdateTeacher(id, TeacherInfo);
+
+            return RedirectToAction("Show/" + id);
+        }
 
 
     }
